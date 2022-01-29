@@ -1,0 +1,86 @@
+# Introduction
+
+This weeks On-Campus tasks will Focus on Cross Site Scripting,
+To give you the chance to see how we can trigger XSS and the kinds of things we
+can do with it.
+
+
+## Part 1: Reflected XSS
+
+Using the [Web Trainer](../7_Web_Injection/Lab_SQLi.md)  Work through the notes
+on [Reflected XSS](TypesOfXss.md)
+
+  - Get an Alert Box showing on the screen
+  - Try some of the other [Suggested Payloads](XSS_Payloads.md) to see what kind
+    of information you can leak
+
+## Part 2: Stored XSS
+
+Using the Web Trainer.  Try working through the stored XSS examples 
+(Its under "Challenges") 
+
+
+  -  Work through the Payloads again,  get an alert box to show
+  -  Try getting the session cookies in an alert box
+  -  Try getting the session cookies to be sent to [another server](XSS_Payloads.md)
+
+## Part 3:  Playing with Shells
+
+Take a look at the notes on [Netcat shells](Netcat.md) 
+
+  - Use Netcat to talk between two machines
+  - Use Netcat to forward a shell between machines.
+
+!!! note
+
+    I have a version of [netcat for windows](files/nmap-7.91-win32.zip).
+    However, we may need to work out how to bypass the uni AV / Firewall
+    to Get it running :(
+
+
+## Part 4:  (Extra Goals)
+
+### DVWA and XSS
+
+The [DVWA](../7_Web_Injection/Lab_DVWA.md) container has similar examples.
+However, this time you can increase the level of input sanitisation.
+  
+  - Try repeating the Examples in DVWA.  What do you need to do to work around
+    the input sanitisation.
+
+### Real World XSS
+
+I also have an Real world exploit with XSS for you to play with.
+Put this together as part of a CTF.
+
+Download and run the [docker-compose](Flatcore/docker-compose.yaml) file
+
+!!! hints
+
+    1. Work out the application that is running
+    2. Google for a CVE related to it
+    3. Try to work out how to send the payload to the server  (I used Python Requests)
+    4. Grab the Admin users cookies and login.
+    5. (Optional)  Push the exploit and get a remote shell onto the box
+    6. (Optional)  Try to get root..... 
+
+
+### Real World Shells
+
+Another CTF machine I put together.  This time its learning to 
+drop a remote shell. 
+
+Download and run the [docker-compose](Moodle/docker-compose.yaml) file
+
+The Vulnerable service is available at ```http://127.0.0.1/moodle```
+
+You have the login for a teacher:
+
+  - User: Todhunter
+  - Password:  IAm@F1sh
+
+!!! hints
+
+	1. Its another real world CVE.  Google the Evil Teacher Bug
+	1. Try to get a remote shell on the server.
+	1. (You can get root on this too, Enjoy)

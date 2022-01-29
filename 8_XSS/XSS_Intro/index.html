@@ -1,0 +1,918 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://github.coventry.ac.uk/pages/aa9863/5067CEM/8_XSS/XSS_Intro/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.8">
+    
+    
+      
+        <title>Introduction to XSS - Ethical Hacking Open Days</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6e60f8b8.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  <!-- ANALYTICS SCRIPT -->
+<!-- Speak to me if you want the intergration here-->
+<!-- <script async defer data-domain="github.coventry.ac.uk/pages/aa9863/5067cem" src=""></script> -->
+
+
+    
+    
+<!--- EXTRA HEAD INFORMATIUON -->
+
+
+  
+
+
+
+
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Ethical Hacking Open Days - Introduction to XSS" />
+
+
+
+<meta property="og:url" content="https://github.coventry.ac.uk/pages/aa9863/5067CEM/8_XSS/XSS_Intro/" />
+
+
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cross-site-scripting-xss" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Ethical Hacking Open Days" class="md-header__button md-logo" aria-label="Ethical Hacking Open Days" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Ethical Hacking Open Days
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Introduction to XSS
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Ethical Hacking Open Days" class="md-nav__button md-logo" aria-label="Ethical Hacking Open Days" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Ethical Hacking Open Days
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          XSS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="XSS" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          XSS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        Cross Site Scripting
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../videos/" class="md-nav__link">
+        Videos
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_3">
+          Materials
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Materials" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Materials
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          What is XSS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        What is XSS
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    How it works
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#so-what-can-the-bad-guys-do-with-it" class="md-nav__link">
+    So what can the Bad Guys do with it?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preventing-xss" class="md-nav__link">
+    Preventing XSS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identifying-areas-where-xss-may-occur" class="md-nav__link">
+    Identifying areas where XSS may occur.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-for-xss" class="md-nav__link">
+    Testing For XSS
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing For XSS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manual-testing" class="md-nav__link">
+    Manual Testing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automated-testing" class="md-nav__link">
+    Automated Testing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    Further Reading
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../TypesOfXss/" class="md-nav__link">
+        Types of XSS
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../XSS_Payloads/" class="md-nav__link">
+        XSS_Payloads
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-it-works" class="md-nav__link">
+    How it works
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#so-what-can-the-bad-guys-do-with-it" class="md-nav__link">
+    So what can the Bad Guys do with it?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preventing-xss" class="md-nav__link">
+    Preventing XSS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#identifying-areas-where-xss-may-occur" class="md-nav__link">
+    Identifying areas where XSS may occur.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing-for-xss" class="md-nav__link">
+    Testing For XSS
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing For XSS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#manual-testing" class="md-nav__link">
+    Manual Testing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automated-testing" class="md-nav__link">
+    Automated Testing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-reading" class="md-nav__link">
+    Further Reading
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+
+<h1 id="cross-site-scripting-xss">Cross Site Scripting (XSS)</h1>
+<p>Cross Site Scripting (XSS) is an attack where a malicious attacker
+injects executable code (often JavaScript) into another user's browser.</p>
+<p>Rather than target the victim, the attack exploits a vulnerability in the
+website that is visited, using this to deliver the malicious JS. To the
+victim, the JS appears to be a legitimate part of the website, and
+therefore should be executed without the site owner's (or victim's)
+knowledge.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>Malicious JS is injected into one of the pages on a website, which
+implies that the site will accept (and include) user input in its pages.
+Again this goes back to Rule #1 of Web Development (don't trust user
+input).</p>
+<p>If the page performs inadequate sanitisation on the input, the data
+inserted by the attacker will be executed by the victim's browser.</p>
+<p>As an example, consider the following PHP page, that relays data input
+in a form:</p>
+<div class="highlight"><pre><span></span><code><span class="x">&lt;html&gt;</span>
+<span class="cp">&lt;?php</span> 
+   <span class="k">echo</span> <span class="s2">&quot;&lt;p&gt;Form input was &quot;</span><span class="o">.</span><span class="nv">$_GET</span><span class="p">[</span><span class="s2">&quot;input&quot;</span><span class="p">]</span><span class="o">.</span><span class="s2">&quot;&lt;/p&gt;&quot;</span>
+<span class="cp">?&gt;</span><span class="x"></span>
+<span class="x">&lt;/html&gt;</span>
+</code></pre></div>
+<p>The code assumes that the user will only input text. So if the user
+input was <code>Hello world</code> the output would be:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Form input was Hello World<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>However, if the user inputs JavaScript such as
+<code>&lt;script&gt;alert();&lt;/script&gt;</code> the output becomes:</p>
+<div class="highlight"><pre><span></span><code><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+   <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Form input was <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span><span class="nx">alert</span><span class="p">()&lt;/</span><span class="nt">script</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+<p>When the Page is loaded by the browser the code contained between the
+script tags will execute.</p>
+<div class="admonition task">
+<p class="admonition-title">Task</p>
+<p>If you start up web trainer (This is under week SQL)
+You can try getting the payload to fire, in the <strong>reflected xss example</strong></p>
+</div>
+<p>There are two things you should note when considering XSS:</p>
+<ul>
+<li>
+<p>When testing for XSS, we will tend to use alerts as out payload. 
+    They are non-malicious (although irritating), and will cause a pop-up to be displayed making it clear when an attack has succeeded.</p>
+</li>
+<li>
+<p>Chrome and Internet Explorer have some forms of XSS detection built in,
+    depending on the web development framework used there is an option to enable
+    this using the HTTP header </p>
+<div class="highlight"><pre><span></span><code>X-XSS-Protection: 0
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not assume this will always work, there are workarounds (and not all browsers are equal)</p>
+</div>
+</li>
+</ul>
+<h2 id="so-what-can-the-bad-guys-do-with-it">So what can the Bad Guys do with it?</h2>
+<p>Things like (but not exclusively limited to)
+  -   Session Jacking
+  -   Key Logging
+  -   Phishing</p>
+<p>While executing JS in someone's browser may not seem that bad (for
+example, it is hard to get hold of files on the remote system using JS)
+there are other options that can take place outside of the browser.</p>
+<ul>
+<li>JS may have access to Cookie Data</li>
+<li>JS can send HTTP requests to other parts of the web</li>
+<li>JS can modify the HTML of the current page using the DOM</li>
+</ul>
+<p>Again, while these may not directly lead to loss of data, it is possible
+to steal credentials (then log in as another user) to escalate the
+attack.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Also... Google "JavaScript Bitcoin Miner" for an idea of the current trends in XSS payloads.</p>
+</div>
+<h2 id="preventing-xss">Preventing XSS</h2>
+<p>Our main way of avoiding XSS is to <strong>NEVER TRUST USER INPUT</strong></p>
+<p>Looking a bit deeper we have the following rules:</p>
+<ul>
+<li>
+<p>Filter input when you receive it.</p>
+<p>Data that we receive (or store) should be filtered for 
+potential issues. However depending on the application functionality we may
+have some limits here.   While restricting all character formatting can help
+prevent XSS,  it also reduces the user experience  (For example, only
+allowing <strong>bold</strong>, <em>italic</em> or Emojis for formatting)</p>
+</li>
+<li>
+<p>Encode data on output</p>
+<p>The flip side of Filtering.  We can also encode data when we display it.
+This will convert common HTML Tags to a "web safe" version.
+(For example  <code>&lt;</code> becomes <code>%68</code>,  meaning it will be displayed
+correctly by the browser, but not identified as HTML code)</p>
+<p>Again, what we allow here can be limited by the desired functionality.</p>
+</li>
+<li>
+<p>Apply Browser based prevention</p>
+<p>Turning on options like <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP">Content Security Policy (CSP)</a>
+can help.  However YMMV depending on browser implementation.</p>
+</li>
+<li>
+<p>Disallow parsing for pages that shouldn't be HTML.</p>
+<p>We can also set the "Content-type" of our pages, to match the expected output.  For example, 
+in API's  we can set the type to "text/json" (or similar) to avoid possible XSS issues.</p>
+</li>
+</ul>
+<p>So while the answer is easy, make sure we sanitise all user input.  However, this can be a lot harder than it sounds.  Given that way the web deals
+with data driven applications, there is a lot of work needed to identify where
+this data may be.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Also Input sanitisation is Hard.
+If you want to practice methods of avoiding common input sanitisation, 
+I would recommend running through the examples at <a href="https://pentesterlab.com/exercises/web_for_pentester">web for pentester</a></p>
+</div>
+<div class="admonition discuss">
+<p class="admonition-title">Filtering <code>#filtering</code></p>
+<p>We all like to code in different languages.  So I am going to avoid making 
+recommendations on filtering approaches.</p>
+<p>For a development language of your choice,  research filtering options.
+  - What is available in the language?<br />
+  - Are there known limitations?</p>
+<p>Comment in the Feed using the tag <code>#filtering</code> on your findings</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are stuck for ideas, you may want to take a look at the following</p>
+<ul>
+<li><a href="https://docs.python.org/3/library/html.html">Pythons html</a> functions.</li>
+<li>The <a href="https://jinja.palletsprojects.com/en/2.11.x/templates/#html-escaping">Jinja Template Language</a>  HTML Escape Functions</li>
+</ul>
+</div>
+</div>
+<h2 id="identifying-areas-where-xss-may-occur">Identifying areas where XSS may occur.</h2>
+<p>The first stage of finding potential XSS is the <strong>code audit</strong>.  Here we
+look through the code, identifying:</p>
+<ul>
+<li>areas where the user supplies data.  </li>
+<li>Areas where user supplied data is displayed.</li>
+</ul>
+<p>This can include (but is not limited to):</p>
+<ul>
+<li>Usernames / Emails</li>
+<li>"Posts" by users</li>
+<li>"Messaging" between users</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Remember that the user has <em>full control</em> over the data being sent.
+You may think that the client side email address checks will stop non email inputs.
+But its easy to bypass these checks.</p>
+<p>Don't just consider the "standard" front end functionality.  While its obvious that we should
+pay a bit more attention to this.  We should, consider other areas where user information might be displayed.
+For example admin screens showing other user data (for example user-agent / browser,  PII)</p>
+</div>
+<p>We should then check the data-flow for this submitted data, and ask:</p>
+<ol>
+<li>Is the user input sanitised?
+        - If not,  WHY not?  </li>
+<li>When does the sanitisation happen:
+        - Before the data is stored
+        - Before the data is displayed  (In this case we need to check EVERY
+          time the data is displayed)</li>
+<li>How does this sanitisation happen:<ul>
+<li>Is it a library, check for known exploits</li>
+<li>Have we rolled our own sanitisation?  Can we be sure It works.</li>
+</ul>
+</li>
+</ol>
+<h2 id="testing-for-xss">Testing For XSS</h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Perhaps it would be better calling this "Testing our Sanitisation Works Correctly"</p>
+</div>
+<p>Once we have identified areas where XSS may occur,  We need to check all of the
+areas we have identified.</p>
+<p>We can have two strategies for testing for XSS.   Either manual testing or
+automated testing.</p>
+<h3 id="manual-testing">Manual Testing</h3>
+<p>Here we can go through each input and test it against a list of possible XSS
+style strings.  </p>
+<p>For example,  in a simple case we could just try the classic
+<code>&lt;script&gt;alert("XSS DEMO")&lt;/script&gt;</code>
+in every text entry box.</p>
+<p>However, as we should be sanitising our data, hopefully a simple alert box
+payload wont show up.  So we need to think of more imaginative ways of working
+around the problem.</p>
+<p>Push the filters that are used.  If its a library, we should be able to get some
+idea of the types of input that are accepted.  If we are using our own forms of
+sanitisation, then again we can test they behave as expected.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This is also where our insight into the code base will help us.
+We know the types of sanitisation that we are using.  We should also have 
+full knowledge of the frameworks etc.  So we should be able to target the testing.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Subject to the usual unit-testing "We Only Test what we expect" issues.</p>
+</div>
+</div>
+<p>When it comes to testing manually, we can also take a leaf out of the automated
+testing book.  There are some excellent lists of XSS payloads out there For
+Example 
+<a href="https://github.com/danielmiessler/SecLists/tree/master/Fuzzing/XSS">Those in SecLists</a>
+That we can use to check for XSS.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Again Pay attention to the frameworks you are using.  If we are using things like 
+Markdown to allow users to format text,  then it would pay to look at Markdown specific payloads.</p>
+</div>
+<h3 id="automated-testing">Automated Testing</h3>
+<p>While the lists of payloads in places like SecLists are great, and can help us
+check against the more common forms of XSS.  There are a lot of them,  and it
+can be a PITA to type them all in.</p>
+<p>We can use tools Like Burp Suite to automate testing for XSS.  Running through
+payload lists (for example those from SecLists), automatically</p>
+<p>As tools are up to personal preference:  I have included some example tutorials
+if you are interested.</p>
+<ul>
+<li>Official <a href="https://portswigger.net/support/using-burp-scanner-to-find-cross-site-scripting-(xss)-issues">Burp XSS Tutorial</a></li>
+<li>Another Tutorial on <a href="https://chambersloaded.com/scanning-for-reflected-xss-with-burp-suite/">XSS with Burp</a></li>
+<li><a href="https://tools.kali.org/web-applications/xsser">XSSer tool in Kali</a></li>
+<li><a href="https://github.com/s0md3v/XSStrike">XSStrike</a></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Again remember that automated scanning needs some human intelligence applied.
+While it can help us run through lots of potential payloads, we still should apply 
+some thinking to the results.</p>
+</div>
+<h2 id="summary">Summary</h2>
+<p>In this article we have had our introduction to Cross Site Scripting (XSS).
+We have looked at what it is,  why it occurs, and highlighted some methods for
+preventing (and detecting) it in our code</p>
+<div class="admonition task">
+<p class="admonition-title">Task</p>
+<p>Using the Web Trainer (In the Github under SQL injection),  try to trigger an alert box.
+Try one of the automated tools described above to trigger the payload.</p>
+</div>
+<h2 id="further-reading">Further Reading</h2>
+<ul>
+<li><a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html">OWASP XSS Prevention Cheat sheet</a></li>
+</ul>
+
+              
+            </article>
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" data-md-state="hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../videos/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Videos" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Videos
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../TypesOfXss/" class="md-footer__link md-footer__link--next" aria-label="Next: Types of XSS" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Types of XSS
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top"], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.22074ed6.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.960e086b.min.js"></script>
+      
+        <script src="../../assets/javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,63 @@
+---
+title: "Introduction"
+description: > 
+  Where we cover the main elements of the module, how it will be run, and assessment.
+---
+
+# Open Day Documents
+
+The Internet, and the World Wide Web[^notInternet] gives organisations and individuals the means to share information, and communicate.
+This has had a significant effect on the the way we interact with each other and live our lives.
+
+
+However, as the publicly accessible "face" of an organisation, any security flaws could lead to the organisation being compromised.
+
+In this module we will have an introduction to web based security.
+We will look at how we can manipulate the data sent too and from web services, using the protocols that make up the web, and how an attacker might use that to change a sites behaviour.
+We will also examine common flaws and security issues with web services, and look at how an attacker might exploit them.
+
+## Module Essentials
+
+  - [Module Guide](essentials/moduleguide.md)
+  - [Assessment](assessment/assessment.md)
+  - [Teaching and Learning](guides/TeachingAndLearning.md)
+  - [Course Materials Guide](guides/Materials.md)
+
+
+### The Aula
+
+The **main reference point** for the course is Aula.  While the GitHub pages docs give us a
+nice way to structure content, it's a workaround.
+
+Whatever you think of Aula itself, the collaborative part is actually a good
+idea.  Each week there will be discussion points in the materials.  Using
+the feed to discuss your views on these points will help you think around the subject.
+<!-- Yes I don't particularly like the implementation of Aula either, but we are stuck with it,  The feed part is a good idea through -->
+
+!!! important "Being Nice"
+
+    People are entitled to their own point of view,  use the feed for constructive feedback and discussion.
+    
+## Module Team
+
+
+  - Dr. Dan Goldsmith. [aa9863@coventry.ac.uk](mailto:aa9863@coventry.ac.uk)
+
+I am a general computer scientist, and have interests in Coding, IoT and
+embedded systems (or really anything computer.based except UX). When it comes to
+Hacking,  I am firmly on the Red Team,  and love breaking into systems or taking
+code apart to see how it works, taking part in (or writing stuff for) CTF events,  binary mangling
+and just learning about the cool ways we can misuse software.
+
+If you have any questions,  you can:
+
+  - Email Me: [aa9863@coventry.ac.uk](mailto:aa9863@coventry.ac.uk)
+  - Ping me On Teams 
+  - Note:  While you *can* use Aula for DM.  The messaging part is a *little big Janky*, so don't expect a rapid response.
+
+
+## Intro Video 
+
+<iframe width="640" height="360" src="https://web.microsoftstream.com/embed/video/475d4c52-6ad7-460b-be6f-a3bb2fb2d090?autoplay=false&showinfo=true" allowfullscreen style="border:none;"></iframe>
+
+[^notInternet]:  Not the Internet.  While we do tend to use the terms interchangeably,  the Internet refers to the infrastructure, and protocols that are used to serve content, while the Web is the content itself. While some people can get funny about misusing the terms, I won't judge you for it.
