@@ -1,0 +1,25 @@
+---
+title: "OWASP Top 10: XSS"
+---
+
+# Topic Introduction
+
+This week we will be looking Cross Site Scripting.
+
+This is another topic high in the OWASP top 10,  and is still very relevant
+today.
+
+
+XSS is where an attacker is able to Inject Javascript (or other client side code) into a page.
+When a victim visits the page, the client side code executes in their browser.  
+This can have a range of effects from minor irritation (popping an alert box), to full account takeover.
+
+
+It is my belief that regardless of filtering systems, or input sanitisation
+methods, XSS is going to be around for a long time.  So much of the web relies
+on people being able to send / receive messages, that displaying user input will
+never go away (and thus the potential mistakes in sanitising it remain)
+
+
+
+
